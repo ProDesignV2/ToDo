@@ -60,6 +60,8 @@ public class Tasks extends SugarRecord<Tasks> {
         long diff = end.getMillis()-start.getMillis();
         int days = (int) (diff / (1000*60*60*24));
 
+        Log.i("TESTING_START_DATE",Integer.toString(end.getYear()));
+
         // 1900 year offset?
         return days - 693690 - 269;
 

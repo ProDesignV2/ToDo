@@ -45,7 +45,7 @@ public class CreateTask extends Activity {
                         Tasks newTask = new Tasks(nameInput.getText().toString(),chosenDate,false);
                         newTask.save();
 
-                        Toast.makeText(CreateTask.this,chosenDate.toString(),Toast.LENGTH_LONG).show();
+                        Toast.makeText(CreateTask.this,Integer.toString(chosenDate.getYear()),Toast.LENGTH_LONG).show();
 
                         finish();
                     }
