@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">To Do</string>
+    <string name="add_task_text">Add Task</string>
+    <string name="name_input_hint">Name</string>
+    <string name="goto_create_text">Create</string>
+    <string name="image_button_desc">goes to create task</string>
+</resources>
