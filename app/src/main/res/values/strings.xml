@@ -4,4 +4,5 @@
     <string name="name_input_hint">Name</string>
     <string name="goto_create_text">Create</string>
     <string name="image_button_desc">goes to create task</string>
+    <string name="todo">What</string>
 </resources>

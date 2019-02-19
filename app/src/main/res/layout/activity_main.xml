@@ -11,42 +11,36 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-       <Button
-
-        android:id="@+id/circleButton"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_below="@id/imageView"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="604dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/circle"
-        android:textColor="#fff"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@android:drawable/ic_input_add" />
-
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/buttonPicture"
         android:layout_width="65dp"
         android:layout_height="62dp"
         android:adjustViewBounds="false"
         android:background="#21D13A"
         android:contentDescription="@string/todo"
         android:cropToPadding="false"
-        android:elevation="2dp"
         android:tint="#ffffff"
-        app:layout_constraintBottom_toBottomOf="@+id/circleButton"
-        app:layout_constraintEnd_toEndOf="@+id/circleButton"
-        app:layout_constraintStart_toStartOf="@+id/circleButton"
-        app:layout_constraintTop_toTopOf="@+id/circleButton"
+        app:layout_constraintBottom_toBottomOf="@+id/goto_round"
+        app:layout_constraintEnd_toEndOf="@+id/goto_round"
+        app:layout_constraintStart_toStartOf="@+id/goto_round"
+        app:layout_constraintTop_toTopOf="@+id/goto_round"
+        app:srcCompat="@android:drawable/ic_input_add" />
+
+    <Button
+        android:id="@+id/goto_round"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@id/buttonPicture"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/circle"
+        android:textColor="#fff"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@android:drawable/ic_input_add" />
 
 </android.support.constraint.ConstraintLayout>

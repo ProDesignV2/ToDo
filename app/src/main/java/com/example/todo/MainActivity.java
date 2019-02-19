@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -12,7 +14,8 @@ import com.example.todo.models.Tasks;
 
 public class MainActivity extends Activity {
 
-    ImageButton goto_create_button;
+    Button goto_create_button;
+    ImageView plus_sign;
     boolean tasks_updated = false;
 
     @Override
@@ -21,6 +24,8 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         goto_create_button = findViewById(R.id.goto_round);
+        plus_sign = findViewById(R.id.buttonPicture);
+//        plus_sign.bringToFront();
 
         goto_create_button.setOnClickListener(
                 new View.OnClickListener() {
@@ -43,6 +48,8 @@ public class MainActivity extends Activity {
         if(!tasks_updated) {
             update_list();
         }
+
+//        plus_sign.bringToFront();
     }
 
     public void update_list(){
