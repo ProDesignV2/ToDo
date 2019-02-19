@@ -16,7 +16,7 @@
         android:layout_width="65dp"
         android:layout_height="62dp"
         android:adjustViewBounds="false"
-        android:background="#21D13A"
+        android:background="#21D13B"
         android:contentDescription="@string/todo"
         android:cropToPadding="false"
         android:tint="#ffffff"
