@@ -26,7 +26,8 @@ class TaskAdapter extends ArrayAdapter<String> {
         // Set TextViews from database
         long row_id = position + 1;
         nameText.setText(Tasks.findById(Tasks.class,row_id).getName());
-        dateText.setText(Tasks.findById(Tasks.class,row_id).getDate().toString());
+//        dateText.setText(String.format("%d",Tasks.findById(Tasks.class,row_id).dateUntil()));
+        dateText.setText(String.valueOf(Tasks.findById(Tasks.class,row_id).dateUntil()));
 
         return taskView;
     }
