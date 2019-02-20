@@ -2,7 +2,9 @@ package com.example.todo;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -16,7 +18,7 @@ public class MainActivity extends Activity {
 
     Button goto_create_button;
     ImageView plus_sign;
-    boolean tasks_updated = false;
+    SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,11 +29,13 @@ public class MainActivity extends Activity {
         plus_sign = findViewById(R.id.buttonPicture);
 //        plus_sign.bringToFront();
 
+        prefs = getSharedPreferences("TO_DO_PREFS", MODE_PRIVATE);
+        prefs.edit().putBoolean("task_added",false).apply();
+
         goto_create_button.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        tasks_updated = false;
                         startActivity(new Intent(MainActivity.this, CreateTask.class));
                     }
                 }
@@ -45,8 +49,10 @@ public class MainActivity extends Activity {
     protected void onRestart() {
         super.onRestart();
 
-        if(!tasks_updated) {
+        if(prefs.getBoolean("task_added",false)) {
             update_list();
+//            Log.i("TESTING_UPDATE","onRestart");
+            prefs.edit().putBoolean("task_added",false).apply();
         }
 
 //        plus_sign.bringToFront();
@@ -60,7 +66,5 @@ public class MainActivity extends Activity {
         ListAdapter taskAdapter = new TaskAdapter(this,new String[(int)numberTasks]);
         ListView taskView = findViewById(R.id.taskView);
         taskView.setAdapter(taskAdapter);
-
-        tasks_updated = true;
     }
 }

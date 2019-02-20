@@ -1,6 +1,7 @@
 package com.example.todo;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +18,7 @@ public class CreateTask extends Activity {
     CalendarView dateChoose;
     EditText nameInput;
     long selected_date;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +29,7 @@ public class CreateTask extends Activity {
         addTask = findViewById(R.id.add_task_button);
         dateChoose = findViewById(R.id.calendarInput);
         selected_date = System.currentTimeMillis();
+        editor = getSharedPreferences("TO_DO_PREFS", MODE_PRIVATE).edit();
 
         dateChoose.setMinDate(selected_date);
 
@@ -47,6 +50,8 @@ public class CreateTask extends Activity {
                     public void onClick(View v) {
                         Tasks newTask = new Tasks(nameInput.getText().toString(),selected_date,false);
                         newTask.save();
+                        // Flag that new task has been added
+                        editor.putBoolean("task_added",true).apply();
                         finish();
                     }
                 }
