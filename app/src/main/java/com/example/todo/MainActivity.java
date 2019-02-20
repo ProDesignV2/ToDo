@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageButton;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -15,6 +16,7 @@ public class MainActivity extends Activity {
 
     AppCompatImageButton goto_create_button;
     SharedPreferences prefs;
+    ListView taskView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +24,8 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         goto_create_button = findViewById(R.id.goto_round);
+        taskView = findViewById(R.id.taskView);
+        goto_create_button.setVisibility(View.VISIBLE);
 
         prefs = getSharedPreferences("TO_DO_PREFS", MODE_PRIVATE);
         prefs.edit().putBoolean("task_added",false).apply();
@@ -37,6 +41,19 @@ public class MainActivity extends Activity {
 
         // Populate list for first time
         update_list();
+
+        taskView.setOnScrollListener(
+                new AbsListView.OnScrollListener() {
+                    @Override
+                    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {}
+
+                    @Override
+                    public void onScrollStateChanged(AbsListView view, int scrollState) {
+                        if(scrollState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL){ goto_create_button.setVisibility(View.GONE); }
+                        else{ goto_create_button.setVisibility(View.VISIBLE); }
+                    }
+                }
+        );
     }
 
     @Override
@@ -56,7 +73,6 @@ public class MainActivity extends Activity {
 
         // Attach string array to ListView
         ListAdapter taskAdapter = new TaskAdapter(this,new String[(int)numberTasks]);
-        ListView taskView = findViewById(R.id.taskView);
         taskView.setAdapter(taskAdapter);
     }
 }
