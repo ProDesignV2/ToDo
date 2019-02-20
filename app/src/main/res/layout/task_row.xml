@@ -34,4 +34,5 @@
         android:paddingRight="5dp"
         android:textColor="#AA00FF"
         android:textSize="25sp" />
+
 </LinearLayout>

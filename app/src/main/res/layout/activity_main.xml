@@ -45,36 +45,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/header_layout"/>
 
-    <ImageView
-        android:id="@+id/buttonPicture"
-        android:layout_width="65dp"
-        android:layout_height="62dp"
-        android:adjustViewBounds="false"
-        android:background="#21D13C"
-        android:contentDescription="@string/todo"
-        android:cropToPadding="false"
-        android:tint="#ffffff"
-        app:layout_constraintBottom_toBottomOf="@+id/goto_round"
-        app:layout_constraintEnd_toEndOf="@+id/goto_round"
-        app:layout_constraintStart_toStartOf="@+id/goto_round"
-        app:layout_constraintTop_toTopOf="@+id/goto_round"
-        app:srcCompat="@android:drawable/ic_input_add" />
-
-    <Button
+    <android.support.v7.widget.AppCompatImageButton
         android:id="@+id/goto_round"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_below="@id/buttonPicture"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="32dp"
-        android:background="@drawable/circle"
-        android:textColor="#fff"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/round_corner"
+        android:contentDescription="@string/add_task_text"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        app:srcCompat="@drawable/ic_plus_100dp" />
 
 </android.support.constraint.ConstraintLayout>

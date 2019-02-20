@@ -1,7 +1,6 @@
 package com.example.todo;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,7 @@ import com.example.todo.models.Tasks;
 
 class TaskAdapter extends ArrayAdapter<String> {
 
-    boolean current_checked = false;
+    private boolean current_checked = false;
 
     TaskAdapter(Context context, String[] dummy) {
         super(context, R.layout.task_row, dummy);

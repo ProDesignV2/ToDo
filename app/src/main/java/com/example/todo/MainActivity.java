@@ -4,11 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.widget.AppCompatImageButton;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -16,8 +13,7 @@ import com.example.todo.models.Tasks;
 
 public class MainActivity extends Activity {
 
-    Button goto_create_button;
-    ImageView plus_sign;
+    AppCompatImageButton goto_create_button;
     SharedPreferences prefs;
 
     @Override
@@ -26,8 +22,6 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         goto_create_button = findViewById(R.id.goto_round);
-        plus_sign = findViewById(R.id.buttonPicture);
-//        plus_sign.bringToFront();
 
         prefs = getSharedPreferences("TO_DO_PREFS", MODE_PRIVATE);
         prefs.edit().putBoolean("task_added",false).apply();
@@ -51,11 +45,9 @@ public class MainActivity extends Activity {
 
         if(prefs.getBoolean("task_added",false)) {
             update_list();
-//            Log.i("TESTING_UPDATE","onRestart");
             prefs.edit().putBoolean("task_added",false).apply();
         }
 
-//        plus_sign.bringToFront();
     }
 
     public void update_list(){
