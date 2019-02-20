@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.todo.models.Tasks;
@@ -25,6 +26,7 @@ class TaskAdapter extends ArrayAdapter<String> {
         final TextView nameText = taskView.findViewById(R.id.nameView);
         TextView dateText = taskView.findViewById(R.id.dateView);
         CheckBox checked = taskView.findViewById(R.id.taskChecked);
+        final LinearLayout taskRow = taskView.findViewById(R.id.taskRowLayout);
 
         // Set TextViews from database
         final long row_id = position + 1;
@@ -37,7 +39,8 @@ class TaskAdapter extends ArrayAdapter<String> {
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                         Tasks.findById(Tasks.class,row_id).setChecked(isChecked);
                         // Change this to grey out
-                        nameText.setAllCaps(isChecked);
+                        if(isChecked){ taskRow.setAlpha((float)0.25); }
+                        else{ taskRow.setAlpha(1); }
                     }
                 }
         );
