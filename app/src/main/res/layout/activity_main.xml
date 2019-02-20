@@ -6,30 +6,44 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <LinearLayout
+        android:id="@+id/header_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#C5C1B7"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/taskView"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="@string/name_header"
+            android:textColor="#0389C7"
+            android:textSize="35sp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:gravity="end|center_vertical"
+            android:text="@string/due_header"
+            android:textColor="#0389C7"
+            android:textSize="35sp" />
+    </LinearLayout>
+
     <ListView
         android:id="@+id/taskView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/headTextView" />
-
-    <TextView
-        android:id="@+id/headTextView"
-        android:layout_width="398dp"
-        android:layout_height="31dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="Name                              Days Left"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.666"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/header_layout"/>
 
     <ImageView
         android:id="@+id/buttonPicture"
