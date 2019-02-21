@@ -2,11 +2,15 @@ package com.example.todo;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
+import android.widget.ListView;
 
 import com.example.todo.models.Tasks;
 
@@ -48,11 +52,14 @@ public class CreateTask extends Activity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Tasks newTask = new Tasks(nameInput.getText().toString(),selected_date,false);
-                        newTask.save();
-                        // Flag that new task has been added
-                        editor.putBoolean("task_added",true).apply();
-                        finish();
+                        if(!nameInput.getText().toString().matches("")) {
+                            Tasks newTask = new Tasks(nameInput.getText().toString(), selected_date, false);
+                            newTask.save();
+                            // Flag that new task has been added
+                            editor.putBoolean("task_added", true).apply();
+                            finish();
+                        }
+                        else{ nameInput.setHintTextColor(Color.rgb(255,0,0)); }
                     }
                 }
         );

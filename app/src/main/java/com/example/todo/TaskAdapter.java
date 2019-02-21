@@ -15,15 +15,17 @@ import com.example.todo.models.Tasks;
 class TaskAdapter extends ArrayAdapter<String> {
 
     private boolean current_checked = false;
+    private int task_count;
 
     TaskAdapter(Context context, String[] dummy) {
         super(context, R.layout.task_row, dummy);
+        task_count = dummy.length;
     }
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         LayoutInflater taskInflater = LayoutInflater.from(getContext());
-        View taskView = taskInflater.inflate(R.layout.task_row, parent, false);
+        final View taskView = taskInflater.inflate(R.layout.task_row, parent, false);
 
         final TextView nameText = taskView.findViewById(R.id.nameView);
         TextView dateText = taskView.findViewById(R.id.dateView);
@@ -31,7 +33,7 @@ class TaskAdapter extends ArrayAdapter<String> {
         final LinearLayout taskRow = taskView.findViewById(R.id.taskRowLayout);
 
         // Set TextViews and checkbox from database
-        final long row_id = position + 1;
+        final long row_id = task_count - position;
         nameText.setText(Tasks.findById(Tasks.class,row_id).getName());
         dateText.setText(String.valueOf(Tasks.findById(Tasks.class,row_id).dateUntil()));
         current_checked = Tasks.findById(Tasks.class,row_id).getChecked();
@@ -58,6 +60,16 @@ class TaskAdapter extends ArrayAdapter<String> {
                     }
                 }
         );
+
+//        taskRow.setOnLongClickListener(
+//                new View.OnLongClickListener() {
+//                    @Override
+//                    public boolean onLongClick(View v) {
+////                        taskView.not
+//                        return true;
+//                    }
+//                }
+//        );
 
         return taskView;
     }

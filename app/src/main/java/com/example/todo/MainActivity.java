@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageButton;
+import android.util.Log;
 import android.view.View;
 import android.widget.AbsListView;
+import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -17,6 +19,9 @@ public class MainActivity extends Activity {
     AppCompatImageButton goto_create_button;
     SharedPreferences prefs;
     ListView taskView;
+
+    ListAdapter taskAdapter;
+    String[] dummy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +46,14 @@ public class MainActivity extends Activity {
 
         // Populate list for first time
         update_list();
+
+//        // Get number of tasks and save count
+//        long numberTasks = Tasks.listAll(Tasks.class).size();
+//        dummy = new String[(int)numberTasks];
+//
+//        // Attach string array to ListView
+//        taskAdapter = new TaskAdapter(this,dummy);
+//        taskView.setAdapter(taskAdapter);
 
         taskView.setOnScrollListener(
                 new AbsListView.OnScrollListener() {
@@ -68,8 +81,11 @@ public class MainActivity extends Activity {
     }
 
     public void update_list(){
-        // Get number of tasks
+        // Get number of tasks and save count
         long numberTasks = Tasks.listAll(Tasks.class).size();
+        dummy = new String[(int)numberTasks];
+
+//        ((BaseAdapter)taskAdapter).notifyDataSetChanged();
 
         // Attach string array to ListView
         ListAdapter taskAdapter = new TaskAdapter(this,new String[(int)numberTasks]);
