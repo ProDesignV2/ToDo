@@ -15,6 +15,7 @@ import com.example.todo.models.Tasks;
 class TaskAdapter extends ArrayAdapter<String> {
 
     private boolean current_checked = false;
+    private boolean current_deleted = false;
     private int task_count;
 
     TaskAdapter(Context context, String[] dummy) {
@@ -24,7 +25,7 @@ class TaskAdapter extends ArrayAdapter<String> {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        LayoutInflater taskInflater = LayoutInflater.from(getContext());
+        final LayoutInflater taskInflater = LayoutInflater.from(getContext());
         final View taskView = taskInflater.inflate(R.layout.task_row, parent, false);
 
         final TextView nameText = taskView.findViewById(R.id.nameView);
@@ -37,6 +38,9 @@ class TaskAdapter extends ArrayAdapter<String> {
         nameText.setText(Tasks.findById(Tasks.class,row_id).getName());
         dateText.setText(String.valueOf(Tasks.findById(Tasks.class,row_id).dateUntil()));
         current_checked = Tasks.findById(Tasks.class,row_id).getChecked();
+        current_deleted = Tasks.findById(Tasks.class,row_id).isDeleted();
+
+//        if(current_deleted){ taskRow.setVisibility(View.GONE); }
 
         // Change opacity
         if(current_checked){ taskRow.setAlpha((float)0.25); }
@@ -61,17 +65,21 @@ class TaskAdapter extends ArrayAdapter<String> {
                 }
         );
 
-//        taskRow.setOnLongClickListener(
-//                new View.OnLongClickListener() {
-//                    @Override
-//                    public boolean onLongClick(View v) {
-////                        taskView.not
-//                        return true;
-//                    }
-//                }
-//        );
+        taskRow.setOnLongClickListener(
+                new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        Tasks task = Tasks.findById(Tasks.class,row_id);
+                        task.setDeleted(true);
+                        task.save();
+//                        taskRow.setVisibility(View.GONE);
+                        return true;
+                    }
+                }
+        );
 
-        return taskView;
+        if(current_deleted){ return null; }
+        else{ return taskView; }
     }
 
 }

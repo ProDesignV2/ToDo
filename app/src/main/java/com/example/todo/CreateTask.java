@@ -53,7 +53,7 @@ public class CreateTask extends Activity {
                     @Override
                     public void onClick(View v) {
                         if(!nameInput.getText().toString().matches("")) {
-                            Tasks newTask = new Tasks(nameInput.getText().toString(), selected_date, false);
+                            Tasks newTask = new Tasks(nameInput.getText().toString(), selected_date, false,false);
                             newTask.save();
                             // Flag that new task has been added
                             editor.putBoolean("task_added", true).apply();
