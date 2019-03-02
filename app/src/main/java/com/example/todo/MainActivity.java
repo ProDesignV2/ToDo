@@ -3,10 +3,12 @@ package com.example.todo;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.AbsListView;
 
 import com.example.todo.models.Tasks;
 
@@ -14,6 +16,7 @@ public class MainActivity extends Activity {
 
     private RecycleAdapter taskAdapter;
     private long taskCount;
+    AppCompatImageButton goto_create_button;
 
     @Override
     protected void onResume() {
@@ -29,7 +32,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        AppCompatImageButton goto_create_button = findViewById(R.id.goto_round);
+        goto_create_button = findViewById(R.id.goto_round);
         goto_create_button.setVisibility(View.VISIBLE);
 
         ClickListener listener = new ClickListener() {
@@ -62,6 +65,20 @@ public class MainActivity extends Activity {
                     }
                 }
         );
+
+        taskView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if(newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL){ goto_create_button.setVisibility(View.GONE); }
+                else{ goto_create_button.setVisibility(View.VISIBLE); }
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
 
 //        taskView.setOnScrollListener(
 //                new AbsListView.OnScrollListener() {
