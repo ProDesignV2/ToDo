@@ -3,6 +3,7 @@ package com.example.todo;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
@@ -34,7 +35,7 @@ public class CreateTask extends Activity {
         dateChoose.setOnDateChangeListener(
                 new CalendarView.OnDateChangeListener() {
                     @Override
-                    public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
+                    public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                         Calendar calendar = Calendar.getInstance();
                         calendar.set(year,month,dayOfMonth);
                         selected_date = calendar.getTimeInMillis();
@@ -47,7 +48,9 @@ public class CreateTask extends Activity {
                     @Override
                     public void onClick(View v) {
                         if(!nameInput.getText().toString().matches("")) {
-                            Tasks newTask = new Tasks(nameInput.getText().toString(), selected_date, false,false);
+                            Tasks newTask = new Tasks(nameInput.getText().toString(), selected_date, false);
+                            newTask.save();
+                            newTask.setSugarID(newTask.getId());
                             newTask.save();
                             finish();
                         }

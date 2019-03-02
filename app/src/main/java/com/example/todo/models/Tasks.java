@@ -7,16 +7,16 @@ public class Tasks extends SugarRecord<Tasks> {
     private String name;
     private long dateTime;
     private boolean checked;
-    private boolean deleted;
+    private long sugarID;
 
     public Tasks() {
     }
 
-    public Tasks(String name, long dateTime, boolean checked, boolean deleted) {
+    public Tasks(String name, long dateTime, boolean checked) {
         this.name = name;
         this.dateTime = dateTime;
         this.checked = checked;
-        this.deleted = deleted;
+        this.sugarID = -1;
     }
 
     public String getName() {
@@ -43,12 +43,12 @@ public class Tasks extends SugarRecord<Tasks> {
         this.checked = checked;
     }
 
-    public boolean isDeleted() {
-        return deleted;
+    public long getSugarID() {
+        return sugarID;
     }
 
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
+    public void setSugarID(long sugarID) {
+        this.sugarID = sugarID;
     }
 
     public int dateUntil(){

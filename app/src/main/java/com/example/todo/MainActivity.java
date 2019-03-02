@@ -19,6 +19,7 @@ public class MainActivity extends Activity {
     protected void onResume() {
         super.onResume();
         if(Tasks.count(Tasks.class,null,null) > taskCount){
+            taskCount++;
             taskAdapter.addedItem();
         }
     }
@@ -31,9 +32,24 @@ public class MainActivity extends Activity {
         AppCompatImageButton goto_create_button = findViewById(R.id.goto_round);
         goto_create_button.setVisibility(View.VISIBLE);
 
+        ClickListener listener = new ClickListener() {
+            @Override
+            public void onCheckBoxClicked(int position, boolean isChecked) {
+                // Deal with checkbox change
+                taskAdapter.checkedItem(position,isChecked);
+            }
+
+            @Override
+            public void onLongClicked(int position) {
+                // Deal with long click
+                taskCount--;
+                taskAdapter.deletedItem(position);
+            }
+        };
+
         RecyclerView taskView = findViewById(R.id.taskView);
         taskView.setLayoutManager(new LinearLayoutManager(this));
-        taskAdapter = new RecycleAdapter(this,Tasks.listAll(Tasks.class));
+        taskAdapter = new RecycleAdapter(this,Tasks.listAll(Tasks.class),listener);
         taskView.setAdapter(taskAdapter);
 
         taskCount = Tasks.count(Tasks.class,null,null);
