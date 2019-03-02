@@ -10,7 +10,7 @@
         android:id="@+id/header_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#C5C1B7"
+        android:background="#ffa500"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@id/taskView"
         app:layout_constraintTop_toTopOf="parent">
@@ -23,8 +23,8 @@
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:text="@string/name_header"
-            android:textColor="#0389C7"
-            android:textSize="35sp" />
+            android:textColor="#ffffff"
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/textView2"
@@ -34,11 +34,11 @@
             android:layout_weight="1"
             android:gravity="end|center_vertical"
             android:text="@string/due_header"
-            android:textColor="#0389C7"
-            android:textSize="35sp" />
+            android:textColor="#ffffff"
+            android:textSize="30sp" />
     </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
+    <ListView
         android:id="@+id/taskView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -47,10 +47,10 @@
 
     <android.support.v7.widget.AppCompatImageButton
         android:id="@+id/goto_round"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/round_corner"
+        android:background="@drawable/ic_plus_100dp"
         android:contentDescription="@string/add_task_text"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
