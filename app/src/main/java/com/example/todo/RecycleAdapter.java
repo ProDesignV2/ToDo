@@ -39,7 +39,8 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.SimpleVi
     @Override
     public void onBindViewHolder(@NonNull SimpleViewHolder simpleViewHolder, int i) {
         // Set items in task row
-        simpleViewHolder.nameText.setText(mTasks.get(i).getName());
+//        simpleViewHolder.nameText.setText(mTasks.get(i).getName());
+        simpleViewHolder.checked.setText(mTasks.get(i).getName());
         simpleViewHolder.dateText.setText(String.valueOf(mTasks.get(i).dateUntil()));
         simpleViewHolder.checked.setChecked(mTasks.get(i).getChecked());
         // Set opacity of layout based on check status
@@ -54,7 +55,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.SimpleVi
 
     static class SimpleViewHolder extends RecyclerView.ViewHolder implements CompoundButton.OnCheckedChangeListener, View.OnLongClickListener {
 
-        TextView nameText;
+//        TextView nameText;
         TextView dateText;
         CheckBox checked;
         LinearLayout taskRow;
@@ -63,7 +64,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.SimpleVi
         SimpleViewHolder(@NonNull View itemView, ClickListener listener) {
             super(itemView);
 
-            nameText = itemView.findViewById(R.id.nameView);
+//            nameText = itemView.findViewById(R.id.nameView);
             dateText = itemView.findViewById(R.id.dateView);
             checked = itemView.findViewById(R.id.taskChecked);
             taskRow = itemView.findViewById(R.id.taskRowLayout);

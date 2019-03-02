@@ -79,18 +79,5 @@ public class MainActivity extends Activity {
                 super.onScrolled(recyclerView, dx, dy);
             }
         });
-
-//        taskView.setOnScrollListener(
-//                new AbsListView.OnScrollListener() {
-//                    @Override
-//                    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {}
-//
-//                    @Override
-//                    public void onScrollStateChanged(AbsListView view, int scrollState) {
-//                        if(scrollState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL){ goto_create_button.setVisibility(View.GONE); }
-//                        else{ goto_create_button.setVisibility(View.VISIBLE); }
-//                    }
-//                }
-//        );
     }
 }
