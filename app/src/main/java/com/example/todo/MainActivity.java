@@ -12,7 +12,6 @@ import com.example.todo.models.Tasks;
 
 public class MainActivity extends Activity {
 
-    private AppCompatImageButton goto_create_button;
     private RecycleAdapter taskAdapter;
     private long taskCount;
 
@@ -20,7 +19,7 @@ public class MainActivity extends Activity {
     protected void onResume() {
         super.onResume();
         if(Tasks.count(Tasks.class,null,null) > taskCount){
-            taskAdapter.swapArrayList(Tasks.listAll(Tasks.class));
+            taskAdapter.addedItem();
         }
     }
 
@@ -29,7 +28,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        goto_create_button = findViewById(R.id.goto_round);
+        AppCompatImageButton goto_create_button = findViewById(R.id.goto_round);
         goto_create_button.setVisibility(View.VISIBLE);
 
         RecyclerView taskView = findViewById(R.id.taskView);

@@ -18,7 +18,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.SimpleVi
     private Context mContext;
     private List<Tasks> mTasks;
 
-    public RecycleAdapter(Context mContext, List<Tasks> mTasks) {
+    RecycleAdapter(Context mContext, List<Tasks> mTasks) {
         this.mContext = mContext;
         this.mTasks = mTasks;
     }
@@ -43,14 +43,14 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.SimpleVi
         return mTasks.size();
     }
 
-    public static class SimpleViewHolder extends RecyclerView.ViewHolder{
+    static class SimpleViewHolder extends RecyclerView.ViewHolder{
 
-        public TextView nameText;
-        public TextView dateText;
-        public CheckBox checked;
+        TextView nameText;
+        TextView dateText;
+        CheckBox checked;
 //        public LinearLayout taskRow;
 
-        public SimpleViewHolder(@NonNull View itemView) {
+        SimpleViewHolder(@NonNull View itemView) {
             super(itemView);
 
             nameText = itemView.findViewById(R.id.nameView);
@@ -60,8 +60,11 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.SimpleVi
         }
     }
 
-    public void swapArrayList(List<Tasks> newList){
-        mTasks = newList;
-        notifyDataSetChanged();
+    void addedItem(){
+        // Load last task from database
+        List<Tasks> task = Tasks.findWithQuery(Tasks.class,"SELECT * FROM TASKS ORDER BY ID DESC LIMIT ?","1");
+        // Could add to specific location using other add function
+        mTasks.add(task.get(0));
+        notifyItemInserted(mTasks.size() - 1);
     }
 }
