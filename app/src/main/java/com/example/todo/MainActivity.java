@@ -2,26 +2,27 @@ package com.example.todo;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageButton;
-import android.util.Log;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.AbsListView;
-import android.widget.BaseAdapter;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 
 import com.example.todo.models.Tasks;
 
 public class MainActivity extends Activity {
 
-    AppCompatImageButton goto_create_button;
-    SharedPreferences prefs;
-    ListView taskView;
+    private AppCompatImageButton goto_create_button;
+    private RecycleAdapter taskAdapter;
+    private long taskCount;
 
-    ListAdapter taskAdapter;
-    String[] dummy;
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(Tasks.count(Tasks.class,null,null) > taskCount){
+            taskAdapter.swapArrayList(Tasks.listAll(Tasks.class));
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +30,14 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         goto_create_button = findViewById(R.id.goto_round);
-        taskView = findViewById(R.id.taskView);
         goto_create_button.setVisibility(View.VISIBLE);
 
-        prefs = getSharedPreferences("TO_DO_PREFS", MODE_PRIVATE);
-        prefs.edit().putBoolean("task_added",false).apply();
+        RecyclerView taskView = findViewById(R.id.taskView);
+        taskView.setLayoutManager(new LinearLayoutManager(this));
+        taskAdapter = new RecycleAdapter(this,Tasks.listAll(Tasks.class));
+        taskView.setAdapter(taskAdapter);
+
+        taskCount = Tasks.count(Tasks.class,null,null);
 
         goto_create_button.setOnClickListener(
                 new View.OnClickListener() {
@@ -44,51 +48,17 @@ public class MainActivity extends Activity {
                 }
         );
 
-        // Populate list for first time
-        update_list();
-
-//        // Get number of tasks and save count
-//        long numberTasks = Tasks.listAll(Tasks.class).size();
-//        dummy = new String[(int)numberTasks];
+//        taskView.setOnScrollListener(
+//                new AbsListView.OnScrollListener() {
+//                    @Override
+//                    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {}
 //
-//        // Attach string array to ListView
-//        taskAdapter = new TaskAdapter(this,dummy);
-//        taskView.setAdapter(taskAdapter);
-
-        taskView.setOnScrollListener(
-                new AbsListView.OnScrollListener() {
-                    @Override
-                    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {}
-
-                    @Override
-                    public void onScrollStateChanged(AbsListView view, int scrollState) {
-                        if(scrollState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL){ goto_create_button.setVisibility(View.GONE); }
-                        else{ goto_create_button.setVisibility(View.VISIBLE); }
-                    }
-                }
-        );
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-
-        if(prefs.getBoolean("task_added",false)) {
-            update_list();
-            prefs.edit().putBoolean("task_added",false).apply();
-        }
-
-    }
-
-    public void update_list(){
-        // Get number of tasks and save count
-        long numberTasks = Tasks.listAll(Tasks.class).size();
-        dummy = new String[(int)numberTasks];
-
-//        ((BaseAdapter)taskAdapter).notifyDataSetChanged();
-
-        // Attach string array to ListView
-        ListAdapter taskAdapter = new TaskAdapter(this,new String[(int)numberTasks]);
-        taskView.setAdapter(taskAdapter);
+//                    @Override
+//                    public void onScrollStateChanged(AbsListView view, int scrollState) {
+//                        if(scrollState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL){ goto_create_button.setVisibility(View.GONE); }
+//                        else{ goto_create_button.setVisibility(View.VISIBLE); }
+//                    }
+//                }
+//        );
     }
 }
