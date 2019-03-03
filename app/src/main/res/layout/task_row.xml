@@ -6,22 +6,21 @@
 
     <CheckBox
         android:id="@+id/taskChecked"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:layout_weight="1"
+        android:paddingStart="10dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:paddingStart="10dp"
         android:textColor="#000000"
         android:textSize="25sp" />
 
     <TextView
         android:id="@+id/dateView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:layout_weight="2"
+        android:layout_weight="1"
         android:gravity="end"
         android:textColor="@color/colorAccent"
         android:textSize="25sp" />

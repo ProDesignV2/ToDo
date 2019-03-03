@@ -15,6 +15,7 @@ import com.example.todo.models.Tasks;
 public class MainActivity extends Activity {
 
     private RecycleAdapter taskAdapter;
+    private LinearLayoutManager linearLayoutManager;
     private long taskCount;
     AppCompatImageButton goto_create_button;
 
@@ -24,6 +25,7 @@ public class MainActivity extends Activity {
         if(Tasks.count(Tasks.class,null,null) > taskCount){
             taskCount++;
             taskAdapter.addedItem();
+            linearLayoutManager.scrollToPositionWithOffset(0,0);
         }
     }
 
@@ -51,8 +53,9 @@ public class MainActivity extends Activity {
         };
 
         RecyclerView taskView = findViewById(R.id.taskView);
-        taskView.setLayoutManager(new LinearLayoutManager(this));
-        taskAdapter = new RecycleAdapter(this,Tasks.listAll(Tasks.class),listener);
+        linearLayoutManager = new LinearLayoutManager(this);
+        taskView.setLayoutManager(linearLayoutManager);
+        taskAdapter = new RecycleAdapter(this,Tasks.findWithQuery(Tasks.class,"SELECT * FROM TASKS ORDER BY ID DESC",(String[])null),listener);
         taskView.setAdapter(taskAdapter);
 
         taskCount = Tasks.count(Tasks.class,null,null);

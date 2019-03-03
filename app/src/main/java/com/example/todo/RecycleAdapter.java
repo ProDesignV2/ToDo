@@ -3,6 +3,7 @@ package com.example.todo;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +13,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.todo.models.Tasks;
+import com.wdullaer.swipeactionadapter.SwipeActionAdapter;
+import com.wdullaer.swipeactionadapter.SwipeDirection;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
 
-public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.SimpleViewHolder> {
+public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.SimpleViewHolder> implements SwipeActionAdapter.SwipeActionListener {
 
     private Context mContext;
     private List<Tasks> mTasks;
@@ -39,7 +42,6 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.SimpleVi
     @Override
     public void onBindViewHolder(@NonNull SimpleViewHolder simpleViewHolder, int i) {
         // Set items in task row
-//        simpleViewHolder.nameText.setText(mTasks.get(i).getName());
         simpleViewHolder.checked.setText(mTasks.get(i).getName());
         simpleViewHolder.dateText.setText(String.valueOf(mTasks.get(i).dateUntil()));
         simpleViewHolder.checked.setChecked(mTasks.get(i).getChecked());
@@ -55,7 +57,6 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.SimpleVi
 
     static class SimpleViewHolder extends RecyclerView.ViewHolder implements CompoundButton.OnCheckedChangeListener, View.OnLongClickListener {
 
-//        TextView nameText;
         TextView dateText;
         CheckBox checked;
         LinearLayout taskRow;
@@ -64,7 +65,6 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.SimpleVi
         SimpleViewHolder(@NonNull View itemView, ClickListener listener) {
             super(itemView);
 
-//            nameText = itemView.findViewById(R.id.nameView);
             dateText = itemView.findViewById(R.id.dateView);
             checked = itemView.findViewById(R.id.taskChecked);
             taskRow = itemView.findViewById(R.id.taskRowLayout);
@@ -94,8 +94,8 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.SimpleVi
         // Load last task from database
         List<Tasks> task = Tasks.findWithQuery(Tasks.class,"SELECT * FROM TASKS ORDER BY ID DESC LIMIT ?","1");
         // Could add to specific location using other add function
-        mTasks.add(task.get(0));
-        notifyItemInserted(mTasks.size() - 1);
+        mTasks.add(0,task.get(0));
+        notifyItemInserted(0);
     }
 
     void deletedItem(int position){
@@ -116,5 +116,23 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.SimpleVi
             task.setChecked(isChecked);
             task.save();
         }
+    }
+
+    @Override
+    public boolean hasActions(int position, SwipeDirection direction) {
+        Log.i("TESTING","hasActions");
+        return false;
+    }
+
+    @Override
+    public boolean shouldDismiss(int position, SwipeDirection direction) {
+        Log.i("TESTING","shouldDismiss");
+        return false;
+    }
+
+    @Override
+    public void onSwipe(int[] position, SwipeDirection[] direction) {
+        Log.i("TESTING","onSwipe");
+        // Delete entry
     }
 }
