@@ -46,6 +46,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.SimpleVi
         simpleViewHolder.dateText.setText(String.valueOf(mTasks.get(i).dateUntil()));
         simpleViewHolder.checked.setChecked(mTasks.get(i).getChecked());
         // Set opacity of layout based on check status
+        Log.i("TESTING","onBind");
         if(mTasks.get(i).getChecked()){ simpleViewHolder.taskRow.setAlpha((float)0.25); }
         else{ simpleViewHolder.taskRow.setAlpha(1); }
     }
@@ -103,7 +104,6 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.SimpleVi
         Tasks task = Tasks.findById(Tasks.class, mTasks.get(position).getSugarID());
         mTasks.remove(position);
         notifyItemRemoved(position);
-        notifyItemRangeChanged(position,mTasks.size());
         task.delete();
     }
 
